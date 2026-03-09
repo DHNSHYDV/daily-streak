@@ -1,0 +1,22 @@
+name: Daily Commit
+
+on:
+  schedule:
+    - cron: '0 0 * * *'  # every day at midnight UTC
+  workflow_dispatch:      # allows manual trigger
+
+jobs:
+  commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Update streak file
+        run: |
+          echo "Streak update $(date)" >> streak.txt
+      - name: Commit changes
+        run: |
+          git config user.name "DHNSHYDV"
+          git config user.email "dhanushyadavkrish@gmail.com"
+          git add streak.txt
+          git commit -m "Daily streak update $(date)"
+          git push
