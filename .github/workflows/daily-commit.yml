@@ -10,6 +10,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
       - name: Update streak file
         run: |
           echo "Streak update $(date)" >> streak.txt
@@ -19,4 +21,6 @@ jobs:
           git config user.email "dhanushyadavkrish@gmail.com"
           git add streak.txt
           git commit -m "Daily streak update $(date)"
-          git push
+          git push origin main
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
